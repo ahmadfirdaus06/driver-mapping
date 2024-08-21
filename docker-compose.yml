@@ -1,6 +1,7 @@
 services:
   backend:
     image: node:20-alpine
+    restart: unless-stopped
     working_dir: /usr/src/app
     volumes:
       - "./:/usr/src/app"
@@ -10,6 +11,7 @@ services:
     depends_on:
       - backend
     image: node:20-alpine
+    restart: unless-stopped
     working_dir: /usr/src/app
     volumes:
       - "./:/usr/src/app"
