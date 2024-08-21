@@ -1,0 +1,21 @@
+services:
+  backend:
+    image: node:20-alpine
+    working_dir: /usr/src/app
+    volumes:
+      - "./:/usr/src/app"
+    command: >
+      sh -c "yarn install --frozen-lockfile && yarn server:prod"
+  frontend:
+    depends_on:
+      - backend
+    image: node:20-alpine
+    working_dir: /usr/src/app
+    volumes:
+      - "./:/usr/src/app"
+    environment:
+      - BASE_API_URL=http://backend:3000
+    ports:
+      - "127.0.0.1:3001:4173"
+    command: >
+      sh -c "yarn install --frozen-lockfile && yarn prod"
